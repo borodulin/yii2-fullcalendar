@@ -7,6 +7,8 @@
 namespace conquer\fullcalendar;
 
 use yii\helpers\Html;
+use yii\helpers\Json as DataJson;
+use yii\web\JsExpression;
 use conquer\helpers\Json;
 use conquer\momentjs\MomentjsAsset;
 
@@ -52,8 +54,10 @@ class FullCalendarWidget extends \yii\base\Widget
     public $htmlOptions = [];
     
     /**
-     * 
-     * @var array
+     * Event objects or an event source.
+     * Encoded as plain JSON: strings with the "js:" prefix are NOT turned into JavaScript,
+     * so event titles coming from users are safe. Put callbacks into $options.
+     * @var array|string
      */
     public $events;
     
@@ -89,7 +93,7 @@ class FullCalendarWidget extends \yii\base\Widget
             $options['lang'] = $this->language;
         }
         if ($this->events) {
-            $options['events'] = $this->events;
+            $options['events'] = new JsExpression(DataJson::htmlEncode($this->events));
         }
         
         $options = Json::encode($options);

@@ -20,7 +20,7 @@ For more information please visit [FullCalendar](http://fullcalendar.io/)
 Install the extension via [Composer](https://getcomposer.org):
 
 ```bash
-composer require conquer/fullcalendar:^1.0
+composer require conquer/fullcalendar:^1.1
 ```
 
 ## Usage
@@ -33,6 +33,9 @@ use conquer\fullcalendar\FullCalendarWidget;
 ]); ?>
 
 ```
+
+> **Security (1.1.0):** `events` are encoded as plain JSON, strings with the `js:` prefix in them are no longer
+> turned into JavaScript, so event titles taken from users cannot inject code. Put callbacks into `options`.
 
 ## License
 
